@@ -1,10 +1,12 @@
-CC=g++
+CC=gcc
 CFLAGS=-I.
 
 linkedlist:
-	$(CC) -c linkedlist.cpp -I linkedlist.h
-	ar rcs liblinkedlist.a linkedlist.o
-	$(CC) test.cpp -L . -llinkedlist -o test
+	mkdir -p bld
+	$(CC) -c linkedlist.c -I linkedlist.h
+	mv linkedlist.o bld/linkedlist.o
+	ar rcs bld/liblinkedlist.a bld/linkedlist.o
+	$(CC) linkedlistTest.c -L bld -llinkedlist -o bld/test
 
 clean:
-	rm linkedlist.o liblinkedlist.a test
+	rm -rf bld
