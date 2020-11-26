@@ -1,19 +1,21 @@
 #include <stdio.h>
 
-struct node {
-  int data;
-  struct node *next;
+struct node
+{
+    int data;
+    struct node *next;
 };
 typedef struct node nodeT;
 
-struct list {
-  struct node *head;
-  struct node *tail;
-  int totalNodes;
+struct list
+{
+    struct node *head;
+    struct node *tail;
+    int totalNodes;
 };
 typedef struct list listT;
 
-void append(int value);
+void append(listT *l, int value);
 /*
 append()	Adds an element at the end of the list
 append(elmnt)
@@ -29,8 +31,6 @@ index()		Returns the index of the first element with the specified value
 list.index(elmnt)
 insert()	Adds an element at the specified position
 insert(list, pos, elmnt)
-pop()		Removes the element at the specified position
-pop(list, pos)
 remove()	Removes the first item with the specified value
 remove(list, elmnt)
 reverse()	Reverses the order of the list

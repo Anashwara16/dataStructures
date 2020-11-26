@@ -1,5 +1,5 @@
 
-/* Adjacency List Implementation 
+/* Adjacency List Implementation
 
 addVertex()
 addEdge()
