@@ -1,14 +1,12 @@
 #include <stdio.h>
 
-struct node
-{
+struct node {
     int data;
     struct node *next;
 };
 typedef struct node nodeT;
 
-struct list
-{
+struct list {
     struct node *head;
     struct node *tail;
     int totalNodes;
@@ -16,6 +14,9 @@ struct list
 typedef struct list listT;
 
 void append(listT *l, int value);
+void prepend(listT *l, int value);
+void insert(listT *l, int pos, int value);
+void display(listT *l);
 /*
 append()	Adds an element at the end of the list
 append(elmnt)
@@ -25,7 +26,8 @@ copy()		Returns a copy of the list
 copy( list )
 count( list )		Returns the number of elements with the specified value
 count(value)
-extend()	Add the elements of a list (or any iterable), to the end of the current list
+extend()	Add the elements of a list (or any iterable), to the end of the
+current list
 extend( list1, list2 )
 index()		Returns the index of the first element with the specified value
 list.index(elmnt)

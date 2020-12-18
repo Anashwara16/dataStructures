@@ -1,60 +1,93 @@
 #include "linkedlist.h"
-
 #include <stdlib.h>
 
-void append(listT *l, int value)
-{
-    nodeT *temp = malloc(sizeof(nodeT));
-    temp->data = value;
-    temp->next = NULL;
-    if (l->head == NULL)
-    {
-        l->head = temp;
-        l->tail = temp;
-        temp = NULL;
+void append(listT *l, int value) {
+    nodeT *newNode = malloc(sizeof(nodeT));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If there are zero nodes
+    if (l->head == NULL) {
+        l->head = newNode;
+        l->tail = newNode;
     }
-    else
-    {
-        l->tail->next = temp;
-        l->tail = temp;
+
+    else {
+        l->tail->next = newNode;
+        l->tail = newNode;
     }
+
     l->totalNodes++;
 }
 
-void display(listT *l)
-{
-    nodeT *temp = malloc(sizeof(nodeT));
-    temp = l->head;
-    while (temp != NULL)
-    {
-        printf("%d \t", temp->data);
-        temp = temp->next;
+void prepend(listT *l, int value) {
+    nodeT *newNode = malloc(sizeof(nodeT));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If there are no nodes
+    if (l->head == NULL) {
+        l->head = newNode;
+        l->tail = newNode;
     }
+
+    else {
+        newNode->next = l->head;
+        l->head = newNode;
+    }
+
+    l->totalNodes++;
 }
 
-void insert(listT *l, int pos, int value)
-{
-    nodeT *pre = malloc(sizeof(nodeT));
-    nodeT *cur = malloc(sizeof(nodeT));
-    nodeT *temp = malloc(sizeof(nodeT));
-    cur = l->head;
-    for (int i = 1; i < pos; i++)
-    {
-        pre = cur;
+void display(listT *l) {
+    printf("\n");
+    nodeT *cur = l->head;
+    while (cur != NULL) {
+        if (cur->next == NULL) {
+            printf("%d \t", cur->data);
+        } else {
+            printf("%d -> \t", cur->data);
+        }
         cur = cur->next;
     }
-    temp->data = value;
-    pre->next = temp;
-    temp->next = cur;
+    printf("\n");
 }
 
-void removeNode(listT *l, int pos)
-{
+void insert(listT *l, int pos, int value) {
+    if (pos == 1) {
+        prepend(l, value);
+        return;
+    }
+    if (pos >= l->totalNodes) {
+        append(l, value);
+        return;
+    }
+    nodeT *newNode = malloc(sizeof(nodeT));
+    newNode->data = value;
+    newNode->next = NULL;
+    int i = 0;
+    int number = 0;
+
+    nodeT *prev = l->head;
+    nodeT *cur = l->head->next;
+
+    while (i < (pos - 2)) {
+        prev = prev->next;
+        cur = cur->next;
+        i++;
+    }
+
+    prev->next = newNode;
+    newNode->next = cur;
+
+    l->totalNodes++;
+}
+
+void removeNode(listT *l, int pos) {
     nodeT *previous = l->head;
     nodeT *current = l->head->next;
     current = l->head;
-    for (int i = 1; i < pos; i++)
-    {
+    for (int i = 1; i < pos; i++) {
         previous = current;
         current = current->next;
     }
@@ -62,33 +95,25 @@ void removeNode(listT *l, int pos)
     free(current);
 }
 
-void clear(listT *l)
-{
-    for (int i = 1; i <= l->totalNodes; i++)
-    {
+void clear(listT *l) {
+    for (int i = 1; i <= l->totalNodes; i++) {
         removeNode(l, i);
     }
 }
 
-unsigned int count(listT *l)
-{
-    return l->totalNodes;
-}
+unsigned int count(listT *l) { return l->totalNodes; }
 
-void extend(listT *l1, listT *l2)
-{
+void extend(listT *l1, listT *l2) {
     unsigned int l2NodeCnt = count(l2);
     l1->tail->next = l2->head;
     l1->totalNodes += l2NodeCnt;
 }
 
-void reverse(listT *l)
-{
+void reverse(listT *l) {
     nodeT *prev = NULL;
     nodeT *next = NULL;
     nodeT *current = l->head;
-    while (current != NULL)
-    {
+    while (current != NULL) {
         next = current->next;
         current->next = prev;
         prev = current;
@@ -96,23 +121,19 @@ void reverse(listT *l)
     }
 }
 
-void bubbleSort(listT *l)
-{
+void bubbleSort(listT *l) {
     int i, j, swapped = 0;
     nodeT *tmp = NULL;
     nodeT *p1 = NULL;
     nodeT *p2 = NULL;
     nodeT *h = NULL;
-    for (i = 0; i <= l->totalNodes; i++)
-    {
+    for (i = 0; i <= l->totalNodes; i++) {
         h = l->head;
         swapped = 0;
-        for (j = 0; j < l->totalNodes - i - 1; j++)
-        {
+        for (j = 0; j < l->totalNodes - i - 1; j++) {
             p1 = l->head;
             p2 = p1->next;
-            if (p1->data > p2->data)
-            {
+            if (p1->data > p2->data) {
                 /* update the link after swapping */
                 p2->next = p1;
                 p1->next = tmp;
@@ -126,18 +147,15 @@ void bubbleSort(listT *l)
     }
 }
 
-void splitList(nodeT *head, nodeT *left, nodeT *right)
-{
+void splitList(nodeT *head, nodeT *left, nodeT *right) {
     nodeT *p1;
     nodeT *p2;
     p2 = head;
     p1 = head->next;
 
-    while (p1 != NULL)
-    {
+    while (p1 != NULL) {
         p1 = p1->next;
-        if (p1 != NULL)
-        {
+        if (p1 != NULL) {
             p2 = p2->next;
             p1 = p1->next;
         }
@@ -147,33 +165,27 @@ void splitList(nodeT *head, nodeT *left, nodeT *right)
     p2->next = NULL;
 }
 
-nodeT *mergeSortedList(nodeT *l1, nodeT *l2)
-{
+nodeT *mergeSortedList(nodeT *l1, nodeT *l2) {
     nodeT *result = NULL;
     if (l1 == NULL)
         return l2;
     else if (l2 == NULL)
         return l1;
-    if (l1->data <= l2->data)
-    {
+    if (l1->data <= l2->data) {
         result = l1;
         result->next = mergeSortedList(l1->next, l2);
-    }
-    else
-    {
+    } else {
         result = l2;
         result->next = mergeSortedList(l1, l2->next);
     }
     return result;
 }
 
-void mergeSort(nodeT *node)
-{
+void mergeSort(nodeT *node) {
     nodeT *left;
     nodeT *right;
 
-    if ((node == NULL) || (node->next == NULL))
-    {
+    if ((node == NULL) || (node->next == NULL)) {
         return;
     }
 
