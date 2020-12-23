@@ -86,13 +86,15 @@ void insert(listT *l, int pos, int value) {
 void removeNode(listT *l, int pos) {
     nodeT *previous = l->head;
     nodeT *current = l->head->next;
-    current = l->head;
-    for (int i = 1; i < pos; i++) {
-        previous = current;
+    int i = 1;
+    while (i < pos - 1) {
+        previous = previous->next;
         current = current->next;
+        i++;
     }
     previous->next = current->next;
     free(current);
+    l->totalNodes--;
 }
 
 void clear(listT *l) {
@@ -110,14 +112,55 @@ void extend(listT *l1, listT *l2) {
 }
 
 void reverse(listT *l) {
-    nodeT *prev = NULL;
-    nodeT *next = NULL;
+
+    nodeT *previous = NULL;
     nodeT *current = l->head;
+    nodeT *temp = NULL;
+    l->tail = l->head;
+
     while (current != NULL) {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
+
+        temp = current->next;
+        current->next = previous;
+        previous = current;
+        current = temp;
+    }
+
+    l->head = previous;
+}
+
+/*
+void swap(nodeT **a, nodeT **b) {
+    nodeT *temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+*/
+
+void swapint(int *a, int *b) {
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubble(listT *l) {
+    nodeT *previous;
+    nodeT *current;
+
+    for (int i = 0; i <= l->totalNodes; i++) {
+        previous = l->head;
+        current = l->head->next;
+        while (current != NULL) {
+
+            if (previous->data > current->data) {
+                swapint(&previous->data, &current->data);
+            }
+
+            previous = previous->next;
+            current = current->next;
+        }
     }
 }
 

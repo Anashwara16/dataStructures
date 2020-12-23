@@ -16,7 +16,12 @@ typedef struct list listT;
 void append(listT *l, int value);
 void prepend(listT *l, int value);
 void insert(listT *l, int pos, int value);
+void removeNode(listT *l, int pos);
 void display(listT *l);
+void reverse(listT *l);
+void swap(nodeT **a, nodeT **b);
+void swapint(int *a, int *b);
+void bubble(listT *l);
 /*
 append()	Adds an element at the end of the list
 append(elmnt)
