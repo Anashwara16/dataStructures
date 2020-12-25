@@ -2,6 +2,7 @@ CC=gcc
 CFLAGS=-I.
 
 linkedlist:
+	./format.sh
 	mkdir -p bld
 	$(CC) -g -c linkedlist.c -I linkedlist.h
 	$(CC) -g -c stack.c -I stack.h
@@ -21,4 +22,7 @@ linkedlist:
 
 clean:
 	rm -rf bld
-	rm treeDot.dot
+
+dot:
+	dot -Tps bld/treeDot.dot -o bld/outfile.ps
+	evince bld/outfile.ps

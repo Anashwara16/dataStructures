@@ -2,8 +2,12 @@
 
 void writeDotFile(char *filename, char *buffer) {
 
-    FILE *fp = fopen(filename, "a");
+    FILE *fp = fopen(filename, "w+");
+    if (fp == NULL) {
+        printf("FILE NOT OPENED \n");
+    }
     fprintf(fp, "%s\n", buffer);
+
     fclose(fp);
 }
 
