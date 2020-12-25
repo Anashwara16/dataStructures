@@ -84,16 +84,26 @@ void insert(listT *l, int pos, int value) {
 }
 
 void removeNode(listT *l, int pos) {
-    nodeT *previous = l->head;
-    nodeT *current = l->head->next;
+    nodeT *previous = NULL;
+    nodeT *current = l->head;
     int i = 1;
-    while (i < pos - 1) {
-        previous = previous->next;
+    if (pos == 1) {
+        free(current);
+        l->totalNodes--;
+        l->head = current->next;
+        return;
+    }
+    while (i < pos) {
+        previous = current;
         current = current->next;
         i++;
     }
     previous->next = current->next;
     free(current);
+
+    if (pos == l->totalNodes) {
+        l->tail = previous;
+    }
     l->totalNodes--;
 }
 

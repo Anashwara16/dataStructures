@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include <stdio.h>
 
 struct node {
@@ -45,3 +48,5 @@ reverse( list )
 sort()		Sorts the list
 sort( list, reverse=True|False, key=myFunc)
 */
+
+#endif /* LINKEDLIST_H */
