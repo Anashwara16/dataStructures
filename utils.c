@@ -25,3 +25,10 @@ void endDotFile(char *filename) {
     fprintf(fp, "}");
     fclose(fp);
 }
+
+void swapint(int *a, int *b) {
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}

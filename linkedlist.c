@@ -1,5 +1,4 @@
 #include "linkedlist.h"
-#include <stdlib.h>
 
 void append(listT *l, int value) {
     nodeT *newNode = malloc(sizeof(nodeT));
@@ -146,7 +145,6 @@ void swap(nodeT **a, nodeT **b) {
     *a = *b;
     *b = temp;
 }
-*/
 
 void swapint(int *a, int *b) {
     int temp;
@@ -154,10 +152,12 @@ void swapint(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
+*/
 
 void bubble(listT *l) {
     nodeT *previous;
     nodeT *current;
+    int temp;
 
     for (int i = 0; i <= l->totalNodes; i++) {
         previous = l->head;
