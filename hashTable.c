@@ -1,4 +1,4 @@
-#include "hahTable.h"
+#include "hashTable.h"
 
 hashT *createHash(int capacity) {
     hashT *hash = malloc(sizeof(hashT));
@@ -61,10 +61,9 @@ void searchList(listT *l, int key, int value) {
 void display(listT *l) {
     nodeT *cur = l->head;
     while (cur != NULL) {
-            printf("\t(%d, %d)", cur->key, cur->val);
-        }
-        cur = cur->next;
+        printf("\t(%d, %d)", cur->key, cur->val);
     }
+    cur = cur->next;
 }
 
 void displayHash(hashT *hash) {
