@@ -1,5 +1,13 @@
 #include "linkedlist.h"
 
+listT *createList() {
+    listT *l = malloc(sizeof(listT));
+    l->head = NULL;
+    l->tail = NULL;
+    l->totalNodes = 0;
+    return l;
+}
+
 void append(listT *l, int value) {
     nodeT *newNode = malloc(sizeof(nodeT));
     newNode->data = value;
@@ -217,7 +225,7 @@ void splitList(nodeT *head, nodeT *left, nodeT *right) {
     right = p2->next;
     p2->next = NULL;
 }
-
+/*
 nodeT *mergeSortedList(nodeT *l1, nodeT *l2) {
     nodeT *result = NULL;
     if (l1 == NULL)
@@ -244,10 +252,10 @@ void mergeSort(nodeT *node) {
 
     splitList(node, left, right);
 
-    /* Recursively sort the sublists */
+    / Recursively sort the sublists /
     mergeSort(left);
     mergeSort(right);
 
-    /* answer = merge the two sorted lists together */
+    / answer = merge the two sorted lists together /
     node = mergeSortedList(left, right);
-}
+}*/

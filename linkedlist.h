@@ -26,6 +26,8 @@ void reverse(listT *l);
 void swap(nodeT **a, nodeT **b);
 void swapint(int *a, int *b);
 void bubble(listT *l);
+listT *createList();
+
 /*
 append()	Adds an element at the end of the list
 append(elmnt)
